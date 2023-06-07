@@ -19,7 +19,7 @@ class StartCategory(APIView):
         category_all = Category.objects.all()
         categorys = CategorySerializer(category_all, many = True).data
         for category in categorys:
-            data['result'].append(category)
+            # data['result'].append(category)
             sub_category_all = Sub_category.objects.filter(category = category['id'])
             sub_categorys = Sub_categorySerializer(sub_category_all, many = True).data
             sub_cate = []
