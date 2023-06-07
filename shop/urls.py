@@ -95,3 +95,11 @@ urlpatterns += [
     path('update-order/', UpdateOrder.as_view()),
     path('delete-order/<int:order_id>/', DeleteOrder.as_view()),
 ]
+
+from .views.start_category import (
+    StartCategory,
+)
+
+urlpatterns += [
+    path('start/', StartCategory.as_view())
+]
