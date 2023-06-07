@@ -9,7 +9,7 @@ from ..serializers import (
     ProductSerializer,
 )
 
-class AddProduct(APIView):
+class AddCart(APIView):
     def post(self, request: Request):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
@@ -25,7 +25,7 @@ class AddProduct(APIView):
             'data': serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
     
-class ProductList(APIView):
+class CartList(APIView):
     def get(self, request: Request):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
@@ -35,7 +35,7 @@ class ProductList(APIView):
             'data': serializer.data
         }, status=status.HTTP_200_OK)
     
-class GetProduct(APIView):
+class GetCart(APIView):
     def get(self, request: Request, sub_category_id):
         product = Product.objects.get(sub_category=sub_category_id)
         serializer = ProductSerializer(product)
@@ -45,7 +45,7 @@ class GetProduct(APIView):
             'data': serializer.data
         }, status=status.HTTP_200_OK)
     
-class UpdateProduct(APIView):
+class UpdateCart(APIView):
     def post(self, request: Request):
         data = request.data
         product = Product.objects.get(id=data['id'])
@@ -63,7 +63,7 @@ class UpdateProduct(APIView):
             'data': serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
     
-class DeleteProduct(APIView):
+class DeleteCart(APIView):
     def post(self, request: Request):
         data = request.data
         product = Product.objects.get(id=data['id'])
