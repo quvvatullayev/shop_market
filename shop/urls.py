@@ -11,9 +11,9 @@ urlpatterns = []
 urlpatterns += [
     path('add-user/', AddUser.as_view()),
     path('user-list/', UserList.as_view()),
-    path('get-user/<int:user_id>/', GetUser.as_view()),
+    path('get-user/<int:chat_id>/', GetUser.as_view()),
     path('update-user/', UpdateUser.as_view()),
-    path('delete-user/<int:user_id>/', DeleteUser.as_view()),
+    path('delete-user/<int:chat_id>/', DeleteUser.as_view()),
 ]
 
 from .views.category import (

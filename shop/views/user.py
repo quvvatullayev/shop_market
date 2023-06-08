@@ -61,12 +61,10 @@ class UpdateUser(APIView):
         }, status=status.HTTP_200_OK)
     
 class DeleteUser(APIView):
-    def post(self, request: Request):
-        data = request.data
-        user = User.objects.get(chat_id=data['chat_id'])
+    def post(self, request: Request, chat_id):
+        user = User.objects.get(chat_id=chat_id)
         user.delete()
         return Response({
             'status': True,
             'message': 'User deleted successfully',
-            'data': []
         }, status=status.HTTP_200_OK)
