@@ -49,20 +49,16 @@ class UpdateUser(APIView):
     def post(self, request: Request):
         data = request.data
         user = User.objects.get(chat_id=data['chat_id'])
-        serializer = UserSerializer(user, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            
-            return Response({
-                'status': True,
-                'message': 'User updated successfully',
-                'data': serializer.data
-            }, status=status.HTTP_200_OK)
+        user.username = data.get('username', user.username)
+        user.name = data.get('name', user.name)
+        user.phone = data.get('phone', user.phone)
+        user.save()
+        serializer = UserSerializer(user)
         return Response({
-            'status': False,
-            'message': 'User not updated',
-            'data': serializer.errors
-        }, status=status.HTTP_400_BAD_REQUEST)
+            'status': True,
+            'message': 'User updated successfully',
+            'data': serializer.data
+        }, status=status.HTTP_200_OK)
     
 class DeleteUser(APIView):
     def post(self, request: Request):
