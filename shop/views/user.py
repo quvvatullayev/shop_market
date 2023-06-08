@@ -52,6 +52,7 @@ class UpdateUser(APIView):
         serializer = UserSerializer(user, data=data)
         if serializer.is_valid():
             serializer.save()
+            
             return Response({
                 'status': True,
                 'message': 'User updated successfully',
