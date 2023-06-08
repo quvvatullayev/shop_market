@@ -62,9 +62,15 @@ class UpdateUser(APIView):
     
 class DeleteUser(APIView):
     def post(self, request: Request, chat_id):
-        user = User.objects.get(chat_id=chat_id)
-        user.delete()
-        return Response({
-            'status': True,
-            'message': 'User deleted successfully',
-        }, status=status.HTTP_200_OK)
+        try:
+            user = User.objects.get(chat_id=chat_id)
+            user.delete()
+            return Response({
+                'status': True,
+                'message': 'User deleted successfully',
+            }, status=status.HTTP_200_OK)
+        except:
+            return Response({
+                'status': False,
+                'message': 'User not found',
+            }, status=status.HTTP_404_NOT_FOUND)
