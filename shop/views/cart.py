@@ -4,6 +4,7 @@ from rest_framework.request import Request
 from rest_framework import status
 from ..models import (
     Cart,
+    User,
 )
 from ..serializers import (
     CartSerializer,
@@ -11,7 +12,12 @@ from ..serializers import (
 
 class AddCart(APIView):
     def post(self, request: Request):
-        serializer = CartSerializer(data=request.data)
+        data = request.data
+        chat_id = data['chat_id']
+        user = User.objects.get(chat_id=chat_id)
+        user_id = user.id
+        data['user'] = user_id
+        serializer = CartSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response({
