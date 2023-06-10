@@ -38,6 +38,8 @@ class CartSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)
     class Meta:
         model = Order
         fields = '__all__'
