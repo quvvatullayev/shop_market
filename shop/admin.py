@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Category, Sub_category, Product, Cart, Order
+from .models import User, Category, Sub_category, Product, Cart, Order, Contact_store
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -79,5 +79,16 @@ class OrderAdmin(admin.ModelAdmin):
         queryset.update(status=True)
     make_published.short_description = "Mark selected stories as published"
 
+@admin.register(Contact_store)
+class Contact_storeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'phone']
+    fields = ['name', 'phone']
+    search_fields = ['name', 'phone']
+    ordering = ['name', 'phone']
+    actions = ['make_published']
+    list_display_links = ['name', 'phone']
 
+    def make_published(self, request, queryset):
+        queryset.update(status=True)
+    make_published.short_description = "Mark selected stories as published"
 
