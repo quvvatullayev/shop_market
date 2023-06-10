@@ -75,6 +75,15 @@ class DeleteOrder(APIView):
             'data': []
         }, status=status.HTTP_200_OK)
     
-class AddOrderList(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+class AddOrderList(APIView):
+    def post(self, request: Request):
+        data = request.data
+        for item in data:
+            serializer = OrderSerializer(data=item)
+            if serializer.is_valid():
+                serializer.save()
+        return Response({
+            'status': True,
+            'message': 'Order list created successfully',
+            'data': []
+        }, status=status.HTTP_201_CREATED)
