@@ -78,12 +78,14 @@ class DeleteOrder(APIView):
 class AddOrderList(APIView):
     def post(self, request: Request):
         data = request.data
+        response = []
         for item in data:
             serializer = OrderSerializer(data=item)
             if serializer.is_valid():
                 serializer.save()
+                response.append(serializer.data)
         return Response({
             'status': True,
             'message': 'Order list created successfully',
-            'data': []
+            'data': response
         }, status=status.HTTP_201_CREATED)
