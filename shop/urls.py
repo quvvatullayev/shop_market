@@ -107,3 +107,10 @@ from .views.start_category import (
 urlpatterns += [
     path('start/', StartCategory.as_view())
 ]
+
+from .views.contact_store import (
+    Contact_storeList,
+)
+urlpatterns += [
+    path('contact-store-list/', Contact_storeList.as_view())
+]
