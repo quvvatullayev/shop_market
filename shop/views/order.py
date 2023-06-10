@@ -48,19 +48,16 @@ class GetOrder(APIView):
             'data': serializer.data
         }, status=status.HTTP_200_OK)
     
-class GetOrder_by_chat_id(APIView):
-    def get(self, request: Request, chat_id):
-        user_data = User.objects.get(chat_id = chat_id)
-        user = UserSerializer(user_data)
-        
-        order_data = Order.objects.filter(user = user['id'])
-        order = OrderSerializer(order_data, many=True)
-
+class GetUserOrder(APIView):
+    def get(self, request: Request, user_id):
+        user = User.objects.get(id=user_id)
+        orders = Order.objects.filter(user=user)
+        serializer = OrderSerializer(orders, many=True)
         return Response({
-                'status': True,
-                'message': 'Order by chat id successfully',
-                'data': order.data
-            }, status=status.HTTP_200_OK)
+            'status': True,
+            'message': 'User orders',
+            'data': serializer.data
+        }, status=status.HTTP_200_OK)
 
     
 class UpdateOrder(APIView):

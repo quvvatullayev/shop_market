@@ -87,7 +87,7 @@ from .views.order import (
     UpdateOrder,
     DeleteOrder,
     AddOrderList,
-    GetOrder_by_chat_id
+    GetUserOrder
 )
 
 urlpatterns += [
@@ -97,7 +97,7 @@ urlpatterns += [
     path('update-order/', UpdateOrder.as_view()),
     path('delete-order/<int:order_id>/', DeleteOrder.as_view()),
     path('add-order-list/', AddOrderList.as_view()),
-    path('get-order-by-chat-id/<int:chat_id>/', GetOrder_by_chat_id.as_view())
+    path('get-user-order/<int:user_id>/', GetUserOrder.as_view()),
 ]
 
 from .views.start_category import (
