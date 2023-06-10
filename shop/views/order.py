@@ -5,9 +5,11 @@ from rest_framework import status
 from rest_framework import generics
 from ..models import (
     Order,
+    User
 )
 from ..serializers import (
     OrderSerializer,
+    UserSerializer
 )
 
 class AddOrder(APIView):
@@ -45,6 +47,21 @@ class GetOrder(APIView):
             'message': 'Order',
             'data': serializer.data
         }, status=status.HTTP_200_OK)
+    
+class GetOrder_by_chat_id(APIView):
+    def get(self, request: Request, chat_id):
+        user_data = User.objects.get(chat_id = chat_id)
+        user = UserSerializer(user_data)
+        
+        order_data = Order.objects.filter(user = user['id'])
+        order = OrderSerializer(order_data, many=True)
+
+        return Response({
+                'status': True,
+                'message': 'Order by chat id successfully',
+                'data': order.data
+            }, status=status.HTTP_200_OK)
+
     
 class UpdateOrder(APIView):
     def post(self, request: Request):
