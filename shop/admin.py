@@ -81,12 +81,13 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Contact_store)
 class Contact_storeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'phone']
-    fields = ['name', 'phone']
-    search_fields = ['name', 'phone']
-    ordering = ['name', 'phone']
+    list_display = ['name', 'phone', 'location', 'image', 'address']
+    fields = ['name', 'phone', 'location', 'image', 'address']
+    search_fields = ['name', 'phone', 'location', 'image', 'address']
+    ordering = ['name', 'phone', 'location', 'image', 'address']
     actions = ['make_published']
-    list_display_links = ['name', 'phone']
+    list_display_links = ['name', 'phone', 'location', 'image', 'address']
+    
 
     def make_published(self, request, queryset):
         queryset.update(status=True)
