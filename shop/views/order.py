@@ -76,7 +76,7 @@ class DeleteOrder(APIView):
         }, status=status.HTTP_200_OK)
     
 class AddOrderList(APIView):
-    def post(self, request: Request):
+    def get(self, request: Request):
         data = request.data
         for item in data:
             serializer = OrderSerializer(data=item)
