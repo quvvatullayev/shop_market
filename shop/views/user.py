@@ -15,7 +15,7 @@ class AddUser(APIView):
         if User.objects.filter(chat_id=chat_id):
             return Response({
                 'status': False,
-                'message': 'User already exist',
+                'message': 'User already exists',
             }, status=status.HTTP_400_BAD_REQUEST)
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
