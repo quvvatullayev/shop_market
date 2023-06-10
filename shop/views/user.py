@@ -11,6 +11,12 @@ from ..serializers import (
 
 class AddUser(APIView):
     def post(self, request: Request, *args, **kwargs):
+        chat_id = request.data['chat_id']
+        if User.objects.filter(chat_id=chat_id):
+            return Response({
+                'status': False,
+                'message': 'User already exist',
+            }, status=status.HTTP_400_BAD_REQUEST)
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
