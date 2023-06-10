@@ -97,7 +97,7 @@ urlpatterns += [
     path('update-order/', UpdateOrder.as_view()),
     path('delete-order/<int:order_id>/', DeleteOrder.as_view()),
     path('add-order-list/', AddOrderList.as_view()),
-    path('get-order-by-chat-id', GetOrder_by_chat_id.as_view())
+    path('get-order-by-chat-id/<int:chat_id>/', GetOrder_by_chat_id.as_view())
 ]
 
 from .views.start_category import (
