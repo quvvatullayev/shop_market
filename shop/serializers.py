@@ -6,6 +6,7 @@ from .models import (
     Product,
     Cart,
     Order,
+    Contact_store
 )
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,4 +43,9 @@ class OrderSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
     class Meta:
         model = Order
+        fields = '__all__'
+
+class Contact_storeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact_store
         fields = '__all__'
