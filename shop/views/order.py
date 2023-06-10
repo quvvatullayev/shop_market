@@ -14,19 +14,24 @@ from ..serializers import (
 
 class AddOrder(APIView):
     def post(self, request: Request):
-        serializer = OrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({
-                'status': True,
-                'message': 'Order created successfully',
-                'data': serializer.data
-            }, status=status.HTTP_201_CREATED)
+        data_list = request.data
+        for data in data_list:
+            user = User.objects.get(id=data['user'])
+            data['user'] = user
+            serializer = OrderSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response({
+                    'status': False,
+                    'message': 'Order not created',
+                    'data': serializer.errors
+                }, status=status.HTTP_400_BAD_REQUEST)
         return Response({
-            'status': False,
-            'message': 'Order not created',
-            'data': serializer.errors
-        }, status=status.HTTP_400_BAD_REQUEST)
+            'status': True,
+            'message': 'Order created successfully',
+            'data': serializer.data
+        }, status=status.HTTP_201_CREATED)
     
 class OrderList(APIView):
     def get(self, request: Request):
