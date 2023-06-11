@@ -16,21 +16,21 @@ class AddOrder(APIView):
     def post(self, request: Request):
         data_list = request.data
         for data in data_list:
-            user = User.objects.get(id=data['user'])
-            data['user'] = user
+            print(data)
             serializer = OrderSerializer(data=data)
             if serializer.is_valid():
+                print(serializer)
                 serializer.save()
-            else:
-                return Response({
-                    'status': False,
-                    'message': 'Order not created',
-                    'data': serializer.errors
-                }, status=status.HTTP_400_BAD_REQUEST)
+            # else:
+            #     return Response({
+            #         'status': False,
+            #         'message': 'Order not created',
+            #         'data': serializer.errors
+            #     }, status=status.HTTP_400_BAD_REQUEST)
         return Response({
             'status': True,
             'message': 'Order created successfully',
-            'data': serializer.data
+            'data': ''
         }, status=status.HTTP_201_CREATED)
     
 class OrderList(APIView):
@@ -78,7 +78,14 @@ class GetUserOrder(APIView):
 class UpdateOrder(APIView):
     def post(self, request: Request):
         data = request.data
+        print(data['id'])
         order = Order.objects.get(id=data['id'])
+        data['user'] = data.get('user', order.user.id)
+        data['product'] = data.get('product', order.product.id)
+        data['count'] = data.get('count', order.count)
+        data['status'] = data.get('status', order.status)
+        data['address'] = data.get('address', order.address)
+        data['phone'] = data.get('phone', order.phone)
         serializer = OrderSerializer(order, data=data)
         if serializer.is_valid():
             serializer.save()
@@ -92,6 +99,9 @@ class UpdateOrder(APIView):
             'message': 'Order not updated',
             'data': serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+        
     
 class DeleteOrder(APIView):
     def post(self, request: Request):
