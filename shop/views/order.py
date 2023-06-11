@@ -53,6 +53,16 @@ class GetOrder(APIView):
             'data': serializer.data
         }, status=status.HTTP_200_OK)
     
+class getOrderbyId(APIView):
+    def get(self, request: Request, order_id):
+        order = Order.objects.get(id=order_id)
+        serializer = OrderSerializer(order)
+        return Response({
+            'status': True,
+            'message': 'Order',
+            'data': serializer.data
+        }, status=status.HTTP_200_OK)
+    
 class GetUserOrder(APIView):
     def get(self, request: Request, user_id):
         user = User.objects.get(id=user_id)

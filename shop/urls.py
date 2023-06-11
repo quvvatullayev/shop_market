@@ -91,17 +91,19 @@ from .views.order import (
     UpdateOrder,
     DeleteOrder,
     AddOrderList,
-    GetUserOrder
+    GetUserOrder,
+    getOrderbyId,
 )
 
 urlpatterns += [
     path('add-order/', AddOrder.as_view()),
     path('order-list/', OrderList.as_view()),
-    path('get-order/<int:order_id>/', GetOrder.as_view()),
+    path('get-order/<int:user_id>/', GetOrder.as_view()),
     path('update-order/', UpdateOrder.as_view()),
     path('delete-order/<int:order_id>/', DeleteOrder.as_view()),
     path('add-order-list/', AddOrderList.as_view()),
     path('get-user-order/<int:user_id>/', GetUserOrder.as_view()),
+    path('get-order-by-id/<int:order_id>/', getOrderbyId.as_view()),
 ]
 
 from .views.start_category import (
