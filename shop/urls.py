@@ -5,6 +5,8 @@ from .views.user import (
     GetUser,
     UpdateUser,
     DeleteUser,
+    GetAdminUser,
+    AdminList,
 )
 
 urlpatterns = []
@@ -14,6 +16,8 @@ urlpatterns += [
     path('get-user/<int:chat_id>/', GetUser.as_view()),
     path('update-user/', UpdateUser.as_view()),
     path('delete-user/<int:chat_id>/', DeleteUser.as_view()),
+    path('get-admin-user/<str:username>/', GetAdminUser.as_view()),
+    path('admin-list/', AdminList.as_view()),
 ]
 
 from .views.category import (

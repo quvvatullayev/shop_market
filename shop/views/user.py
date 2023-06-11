@@ -2,15 +2,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework import status
+from django.contrib.auth.models import User as AdminUser
 from ..models import (
     User,
 )
 from ..serializers import (
     UserSerializer,
+    AdminUserSerializer
 )
 
 class AddUser(APIView):
-    def post(self, request: Request, *args, **kwargs):
+    def post(self, request: Request):
         chat_id = request.data['chat_id']
         if User.objects.filter(chat_id=chat_id):
             return Response({
@@ -80,3 +82,30 @@ class DeleteUser(APIView):
                 'status': False,
                 'message': 'User not found',
             }, status=status.HTTP_404_NOT_FOUND)
+        
+class GetAdminUser(APIView):
+    def get(self, request: Request, username):
+        try:
+            user = AdminUser.objects.get(is_superuser=True, username=username)
+            serializer = AdminUserSerializer(user)
+            return Response({
+                'status': True,
+                'message': 'User',
+                'data': serializer.data
+            }, status=status.HTTP_200_OK
+            )
+        except:
+            return Response({
+                'status': False,
+                'message': 'User not found',
+            }, status=status.HTTP_404_NOT_FOUND)
+    
+class AdminList(APIView):
+    def get(self, request: Request):
+        users = AdminUser.objects.filter(is_superuser=True)
+        serializer = AdminUserSerializer(users, many=True)
+        return Response({
+            'status': True,
+            'message': 'User list',
+            'data': serializer.data
+        }, status=status.HTTP_200_OK)
