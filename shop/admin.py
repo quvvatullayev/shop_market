@@ -3,12 +3,13 @@ from .models import User, Category, Sub_category, Product, Order, Contact_store
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'name', 'chat_id', 'phone']
-    fields = ['username', 'name', 'chat_id', 'phone']
-    search_fields = ['username', 'name', 'chat_id', 'phone']
-    ordering = ['username', 'name', 'chat_id', 'phone']
+    list_display = ['username', 'first_name', 'last_name', 'chat_id', 'phone', 'address']
+    fields = ['username', 'first_name', 'last_name', 'chat_id', 'phone', 'address']
+    search_fields = ['username', 'first_name', 'last_name', 'chat_id', 'phone', 'address']
+    ordering = ['username', 'first_name', 'last_name', 'chat_id', 'phone', 'address']
     actions = ['make_published']
-    list_display_links = ['username', 'name', 'chat_id', 'phone']
+    actions = ['delete_queryset']
+    list_display_links = ['username', 'first_name', 'last_name', 'chat_id', 'phone', 'address']
 
     def make_published(self, request, queryset):
         queryset.update(status=True)
