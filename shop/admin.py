@@ -75,6 +75,12 @@ class OrderAdmin(admin.ModelAdmin):
     actions = ['make_published']
     list_display_links = ['user', 'product', 'count', 'address', 'phone', 'status']
 
+    # delete order status true
+    def delete_queryset(self, request, queryset):
+        queryset.update(status=True)
+    delete_queryset.short_description = "Mark selected stories as published"
+    
+
     def make_published(self, request, queryset):
         queryset.update(status=True)
     make_published.short_description = "Mark selected stories as published"
