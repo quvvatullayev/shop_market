@@ -42,9 +42,17 @@ class CartSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     product = ProductSerializer(many=False, read_only=True)
     user = UserSerializer(many=False, read_only=True)
+    def validate(self, attrs):
+        print(attrs)
+        return super().validate(attrs)
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['id', 'user', 'product', 'count', 'address', 'phone', 'status']
+
+class CreateOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id', 'user', 'product', 'count', 'address', 'phone', 'status']
 
 class Contact_storeSerializer(serializers.ModelSerializer):
     class Meta:

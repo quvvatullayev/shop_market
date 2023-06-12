@@ -9,29 +9,28 @@ from ..models import (
 )
 from ..serializers import (
     OrderSerializer,
+    CreateOrderSerializer,
     UserSerializer
 )
 
 class AddOrder(APIView):
     def post(self, request: Request):
-        data_list = request.data
-        response_list = []
-        for data in data_list:
-            serializer = OrderSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-                response_list.append(serializer.data)
-            else:
-                return Response({
-                    'status': False,
-                    'message': 'Order not created',
-                    'data': serializer.errors
-                }, status=status.HTTP_400_BAD_REQUEST)
-        return Response({
+        data = request.data
+        serializer = CreateOrderSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
             'status': True,
             'message': 'Order created successfully',
-            'data': response_list
+            'data': serializer.data
         }, status=status.HTTP_201_CREATED)
+        else:
+            return Response({
+                'status': False,
+                'message': 'Order not created',
+                'data': serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
     
 class OrderList(APIView):
     def get(self, request: Request):
@@ -113,18 +112,25 @@ class DeleteOrder(APIView):
             'message': 'Order deleted successfully',
             'data': []
         }, status=status.HTTP_200_OK)
-    
+
 class AddOrderList(APIView):
-    def post(self, request: Request):
-        data = request.data
-        response = []
-        for item in data:
-            serializer = OrderSerializer(data=item)
+    def post(self, request:Request):
+        data_list = request.data
+        response_data = []
+        for data in data_list:
+            serializer = CreateOrderSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
-                response.append(serializer.data)
+                response_data.append(serializer.data)
+            else:
+                return Response({
+                    'status': False,
+                    'message': 'Order not created',
+                    'data': serializer.errors
+                }, status=status.HTTP_400_BAD_REQUEST)
         return Response({
             'status': True,
-            'message': 'Order list created successfully',
-            'data': response
+            'message': 'Order created successfully',
+            'data': response_data
         }, status=status.HTTP_201_CREATED)
+    
