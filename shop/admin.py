@@ -43,12 +43,12 @@ class Sub_categoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'discription', 'price', 'sub_category']
-    fields = ['name', 'discription', 'price', 'sub_category']
-    search_fields = ['name', 'discription', 'price', 'sub_category']
-    ordering = ['name', 'discription', 'price', 'sub_category']
+    list_display = ['name', 'discription', 'price', 'sub_category', 'image']
+    fields = ['name', 'discription', 'price', 'sub_category', 'image']
+    search_fields = ['name', 'discription', 'price', 'sub_category', 'image']
+    ordering = ['name', 'discription', 'price', 'sub_category', 'image']
     actions = ['make_published']
-    list_display_links = ['name', 'discription', 'price', 'sub_category']
+    list_display_links = ['name', 'discription', 'price', 'sub_category', 'image']
 
     def make_published(self, request, queryset):
         queryset.update(status=True)
