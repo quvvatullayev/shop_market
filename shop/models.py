@@ -13,16 +13,14 @@ class User(models.Model):
     
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    discription = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='category/')
+    discription = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.name
     
 class Sub_category(models.Model):
     name = models.CharField(max_length=50)
-    discription = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='sub_category/')
+    discription = models.CharField(max_length=50, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -17,12 +17,12 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin): 
-    list_display = ['name', 'discription', 'image']
-    fields = ['name', 'discription', 'image']
-    search_fields = ['name', 'discription', 'image']
-    ordering = ['name', 'discription', 'image']
+    list_display = ['name', 'discription']
+    fields = ['name', 'discription',]
+    search_fields = ['name', 'discription']
+    ordering = ['name', 'discription']
     actions = ['make_published']
-    list_display_links = ['name', 'discription', 'image']
+    list_display_links = ['name', 'discription']
 
     def make_published(self, request, queryset):
         queryset.update(status=True)
@@ -30,12 +30,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Sub_category)
 class Sub_categoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'discription', 'image', 'category']
-    fields = ['name', 'discription', 'image', 'category']
-    search_fields = ['name', 'discription', 'image', 'category']
-    ordering = ['name', 'discription', 'image', 'category']
+    list_display = ['name', 'discription', 'category']
+    fields = ['name', 'discription', 'category']
+    search_fields = ['name', 'discription', 'category']
+    ordering = ['name', 'discription', 'category']
     actions = ['make_published']
-    list_display_links = ['name', 'discription', 'image', 'category']
+    list_display_links = ['name', 'discription', 'category']
 
     def make_published(self, request, queryset):
         queryset.update(status=True)
@@ -43,12 +43,12 @@ class Sub_categoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'discription', 'image', 'price', 'sub_category']
-    fields = ['name', 'discription', 'image', 'price', 'sub_category']
-    search_fields = ['name', 'discription', 'image', 'price', 'sub_category']
-    ordering = ['name', 'discription', 'image', 'price', 'sub_category']
+    list_display = ['name', 'discription', 'price', 'sub_category']
+    fields = ['name', 'discription', 'price', 'sub_category']
+    search_fields = ['name', 'discription', 'price', 'sub_category']
+    ordering = ['name', 'discription', 'price', 'sub_category']
     actions = ['make_published']
-    list_display_links = ['name', 'discription', 'image', 'price', 'sub_category']
+    list_display_links = ['name', 'discription', 'price', 'sub_category']
 
     def make_published(self, request, queryset):
         queryset.update(status=True)
@@ -76,12 +76,12 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Contact_store)
 class Contact_storeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'phone', 'location', 'image', 'address']
-    fields = ['name', 'phone', 'location', 'image', 'address']
-    search_fields = ['name', 'phone', 'location', 'image', 'address']
-    ordering = ['name', 'phone', 'location', 'image', 'address']
+    list_display = ['name', 'phone', 'location', 'address']
+    fields = ['name', 'phone', 'location', 'address']
+    search_fields = ['name', 'phone', 'location', 'address']
+    ordering = ['name', 'phone', 'location', 'address']
     actions = ['make_published']
-    list_display_links = ['name', 'phone', 'location', 'image', 'address']
+    list_display_links = ['name', 'phone', 'location', 'address']
     
 
     def make_published(self, request, queryset):
