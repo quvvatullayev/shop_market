@@ -36,12 +36,12 @@ class ProductList(APIView):
         }, status=status.HTTP_200_OK)
     
 class GetProduct(APIView):
-    def get(self, request: Request, sub_category_id):
-        product = Product.objects.get(sub_category=sub_category_id)
+    def get(self, request: Request, product_id):
+        product = Product.objects.get(id=product_id)
         serializer = ProductSerializer(product)
         return Response({
             'status': True,
-            'message': 'Product',
+            'message': 'Product detail',
             'data': serializer.data
         }, status=status.HTTP_200_OK)
     
