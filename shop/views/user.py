@@ -58,8 +58,10 @@ class UpdateUser(APIView):
         data = request.data
         user = User.objects.get(chat_id=data['chat_id'])
         user.username = data.get('username', user.username)
-        user.name = data.get('name', user.name)
+        user.first_name = data.get('first_name', user.first_name)
+        user.last_name = data.get('last_name', user.last_name)
         user.phone = data.get('phone', user.phone)
+        user.address = data.get('address', user.address)
         user.save()
         serializer = UserSerializer(user)
         return Response({
